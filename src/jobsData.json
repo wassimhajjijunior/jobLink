@@ -1,0 +1,278 @@
+[
+  {
+    "id": 1,
+    "title": "Frontend Developer",
+    "company": "TechNova",
+    "location": "New York",
+    "level": "Mid-level",
+    "description": "Responsible for building user interfaces and ensuring responsive designs.",
+    "tags": ["Frontend", "Mid-level", "New York"],
+    "fullDescription": "Responsible for designing, building, and maintaining responsive and interactive user interfaces using modern frontend technologies such as React, Vue, or Angular.",
+    "responsibilities": [
+      "Develop user-friendly interfaces using HTML, CSS, and JavaScript frameworks.",
+      "Collaborate with designers and backend developers to integrate APIs.",
+      "Optimize applications for maximum speed and scalability.",
+      "Maintain code quality through unit testing and code reviews."
+    ],
+    "skills": [
+      "HTML, CSS, JavaScript",
+      "React, Vue, or Angular",
+      "RESTful APIs",
+      "Responsive Design",
+      "Version Control (Git)"
+    ]
+  },
+  {
+    "id": 2,
+    "title": "Backend Developer",
+    "company": "CodeCrafters",
+    "location": "San Francisco",
+    "level": "Senior-level",
+    "description": "Build and maintain server-side logic, APIs, and database integrations.",
+    "tags": ["Backend", "Senior-level", "San Francisco"],
+    "fullDescription": "Responsible for developing robust backend systems, APIs, and managing databases to ensure high-performance and scalable applications.",
+    "responsibilities": [
+      "Design, implement, and maintain APIs and server-side logic.",
+      "Integrate with databases and external services.",
+      "Ensure security, performance, and scalability of backend systems.",
+      "Write automated tests for backend functionalities."
+    ],
+    "skills": [
+      "Node.js, Python, or Java",
+      "Database management (SQL/NoSQL)",
+      "API development",
+      "Authentication and Security",
+      "Version Control (Git)"
+    ]
+  },
+  {
+    "id": 3,
+    "title": "Full Stack Developer",
+    "company": "WebWorks",
+    "location": "Bangalore",
+    "level": "Junior-level",
+    "description": "Work across frontend and backend tasks to deliver complete solutions.",
+    "tags": ["Full Stack", "Junior-level", "Bangalore"],
+    "fullDescription": "Work on both frontend and backend development, building end-to-end solutions for web applications.",
+    "responsibilities": [
+      "Develop frontend interfaces and backend services.",
+      "Integrate APIs and handle database management.",
+      "Collaborate with cross-functional teams for feature delivery.",
+      "Ensure high code quality and application performance."
+    ],
+    "skills": [
+      "HTML, CSS, JavaScript",
+      "React or Angular",
+      "Node.js or Python",
+      "Database knowledge (SQL/NoSQL)",
+      "Version Control (Git)"
+    ]
+  },
+  {
+    "id": 4,
+    "title": "Data Analyst",
+    "company": "Insight Analytics",
+    "location": "London",
+    "level": "Mid-level",
+    "description": "Analyze datasets to provide actionable insights to stakeholders.",
+    "tags": ["Analytics", "Mid-level", "London"],
+    "fullDescription": "Analyze complex datasets to uncover trends, patterns, and insights that guide business decisions.",
+    "responsibilities": [
+      "Collect, clean, and process data from multiple sources.",
+      "Perform statistical analysis and generate reports.",
+      "Visualize data to communicate insights effectively.",
+      "Collaborate with teams to provide actionable recommendations."
+    ],
+    "skills": [
+      "SQL and Excel",
+      "Data Visualization (Tableau, PowerBI, or Matplotlib)",
+      "Statistical analysis",
+      "Python or R",
+      "Critical thinking"
+    ]
+  },
+  {
+    "id": 5,
+    "title": "UI/UX Designer",
+    "company": "DesignHub",
+    "location": "Berlin",
+    "level": "Senior-level",
+    "description": "Design user-centric interfaces and enhance user experience across platforms.",
+    "tags": ["Design", "Senior-level", "Berlin"],
+    "fullDescription": "Responsible for designing engaging and intuitive user experiences across web and mobile platforms.",
+    "responsibilities": [
+      "Create wireframes, mockups, and prototypes.",
+      "Conduct user research and usability testing.",
+      "Collaborate with developers to implement designs.",
+      "Ensure consistency and accessibility in designs."
+    ],
+    "skills": [
+      "Figma, Sketch, or Adobe XD",
+      "User research and testing",
+      "Interaction and visual design",
+      "Responsive design principles",
+      "Collaboration with developers"
+    ]
+  },
+  {
+    "id": 6,
+    "title": "DevOps Engineer",
+    "company": "CloudWorks",
+    "location": "Toronto",
+    "level": "Mid-level",
+    "description": "Manage cloud infrastructure, CI/CD pipelines, and deployment strategies.",
+    "tags": ["DevOps", "Mid-level", "Toronto"],
+    "fullDescription": "Responsible for automating deployments, managing cloud infrastructure, and ensuring reliable CI/CD pipelines.",
+    "responsibilities": [
+      "Build and maintain CI/CD pipelines.",
+      "Monitor and manage cloud infrastructure.",
+      "Implement automation and configuration management.",
+      "Ensure system reliability and scalability."
+    ],
+    "skills": [
+      "AWS, Azure, or GCP",
+      "Docker, Kubernetes",
+      "CI/CD tools (Jenkins, GitHub Actions)",
+      "Scripting (Python, Bash)",
+      "Monitoring and Logging"
+    ]
+  },
+  {
+    "id": 7,
+    "title": "Mobile App Developer",
+    "company": "AppMasters",
+    "location": "Sydney",
+    "level": "Junior-level",
+    "description": "Develop and maintain mobile applications for iOS and Android platforms.",
+    "tags": ["Mobile", "Junior-level", "Sydney"],
+    "fullDescription": "Build, test, and maintain mobile applications for iOS and Android devices with a focus on performance and user experience.",
+    "responsibilities": [
+      "Develop mobile apps using native or cross-platform frameworks.",
+      "Integrate APIs and backend services.",
+      "Optimize app performance and responsiveness.",
+      "Participate in code reviews and testing."
+    ],
+    "skills": [
+      "Swift, Kotlin, React Native, or Flutter",
+      "API integration",
+      "Mobile UI/UX principles",
+      "Debugging and testing",
+      "Version control (Git)"
+    ]
+  },
+  {
+    "id": 8,
+    "title": "Project Manager",
+    "company": "TechSolutions",
+    "location": "Chicago",
+    "level": "Senior-level",
+    "description": "Lead development teams, plan sprints, and ensure timely project delivery.",
+    "tags": ["Management", "Senior-level", "Chicago"],
+    "fullDescription": "Manage projects from initiation to closure, coordinating teams and resources to deliver successful outcomes.",
+    "responsibilities": [
+      "Plan and execute project timelines.",
+      "Coordinate with development teams and stakeholders.",
+      "Track project progress and report status.",
+      "Mitigate risks and resolve issues."
+    ],
+    "skills": [
+      "Project Management tools (Jira, Trello)",
+      "Agile/Scrum methodology",
+      "Leadership and communication",
+      "Risk management",
+      "Time management"
+    ]
+  },
+  {
+    "id": 9,
+    "title": "QA Engineer",
+    "company": "TestPro",
+    "location": "Austin",
+    "level": "Mid-level",
+    "description": "Design and execute test cases to ensure software quality and reliability.",
+    "tags": ["QA", "Mid-level", "Austin"],
+    "fullDescription": "Develop and execute test plans, identify defects, and ensure the quality and reliability of software applications.",
+    "responsibilities": [
+      "Create and maintain test cases.",
+      "Perform manual and automated testing.",
+      "Report and track defects.",
+      "Collaborate with developers to ensure quality."
+    ],
+    "skills": [
+      "Manual and automated testing",
+      "Selenium, Cypress, or Jest",
+      "Test case management",
+      "Bug tracking tools",
+      "Attention to detail"
+    ]
+  },
+  {
+    "id": 10,
+    "title": "Cloud Architect",
+    "company": "SkyNet Solutions",
+    "location": "Seattle",
+    "level": "Senior-level",
+    "description": "Design scalable cloud architecture and guide deployment best practices.",
+    "tags": ["Cloud", "Senior-level", "Seattle"],
+    "fullDescription": "Design, implement, and oversee scalable cloud infrastructure to meet business and technical requirements.",
+    "responsibilities": [
+      "Design cloud architecture and deployment strategies.",
+      "Optimize cloud performance and cost.",
+      "Ensure security and compliance.",
+      "Guide development teams in cloud adoption."
+    ],
+    "skills": [
+      "AWS, Azure, or GCP",
+      "Cloud architecture design",
+      "Security and compliance",
+      "Infrastructure as Code (Terraform, CloudFormation)",
+      "Networking"
+    ]
+  },
+  {
+    "id": 11,
+    "title": "Machine Learning Engineer",
+    "company": "AI Labs",
+    "location": "Boston",
+    "level": "Mid-level",
+    "description": "Develop ML models and integrate them into production systems.",
+    "tags": ["Machine Learning", "Mid-level", "Boston"],
+    "fullDescription": "Build, train, and deploy machine learning models for various applications, ensuring integration with production systems.",
+    "responsibilities": [
+      "Develop and train ML models.",
+      "Deploy models to production environments.",
+      "Collaborate with data scientists and engineers.",
+      "Monitor model performance and accuracy."
+    ],
+    "skills": [
+      "Python, TensorFlow, or PyTorch",
+      "Data preprocessing and feature engineering",
+      "Model deployment and monitoring",
+      "Statistics and algorithms",
+      "Version control (Git)"
+    ]
+  },
+  {
+    "id": 12,
+    "title": "Technical Writer",
+    "company": "DocuTech",
+    "location": "Remote",
+    "level": "Junior-level",
+    "description": "Create clear and concise documentation for software products and APIs.",
+    "tags": ["Writing", "Junior-level", "Remote"],
+    "fullDescription": "Write and maintain technical documentation, user manuals, and API guides for software products.",
+    "responsibilities": [
+      "Produce user-friendly documentation.",
+      "Collaborate with developers and QA teams.",
+      "Maintain and update documentation regularly.",
+      "Ensure clarity and accuracy of technical content."
+    ],
+    "skills": [
+      "Technical writing",
+      "Markdown, Word, or Google Docs",
+      "API documentation",
+      "Attention to detail",
+      "Communication skills"
+    ]
+  }
+]
