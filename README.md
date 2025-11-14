@@ -16,15 +16,13 @@ A clean and interactive **Job Portal** web application built with React. Users c
 
 ## Installation
 
-1. **Clone the repository**
-
-https://github.com/wassimhajjijunior/jobLink.git
-cd job-portal
-
-2. Install dependencies
+1. **Clone the repository** (open cmd)
+cd desktop
+git clone https://github.com/wassimhajjijunior/jobLink.git
+"open the project in VsCode"
+"open the terminal"
  npm install 
-3. Run the project locally
-   npm run dev
+ npm run dev
 
 
 ### Usage
