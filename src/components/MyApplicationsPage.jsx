@@ -1,39 +1,118 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useAuth } from "../contexts/AuthContext";
 
-export default function MyApplicationsPage({ appliedJobs, onBack, onViewDetails }) {
+export default function MyApplicationsPage({ onBack, onViewDetails }) {
+  const [applications, setApplications] = useState([]);
+  const [resumeUrl, setResumeUrl] = useState('');
+  const { getToken, isAuthenticated } = useAuth();
+
+  useEffect(() => {
+    if (!isAuthenticated) return;
+
+    const fetchApplications = async () => {
+      try {
+        const token = getToken();
+        const response = await fetch("http://localhost:3001/api/applications", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        const data = await response.json();
+        setApplications(data);
+      } catch (error) {
+        console.error("Error fetching applications:", error);
+      }
+    };
+
+    fetchApplications();
+  }, [getToken, isAuthenticated]);
+
+  const getStatusStyle = (status) => {
+    switch(status) {
+      case 'pending':
+        return { background: '#dbeafe', color: '#1e40af' };
+      case 'accepted':
+        return { background: '#dcfce7', color: '#166534' };
+      case 'rejected':
+        return { background: '#fee2e2', color: '#991b1b' };
+      default:
+        return { background: '#e5e7eb', color: '#374151' };
+    }
+  };
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const day = date.getDate();
+    const month = date.toLocaleString('en-US', { month: 'short' });
+    const year = date.getFullYear();
+    return `${day} ${month}, ${year}`;
+  };
+
+  const getCompanyInitial = (company) => {
+    return company ? company.charAt(0).toUpperCase() : 'C';
+  };
+
   return (
     <div style={styles.container}>
       <button style={styles.backButton} onClick={onBack}>← Back to all jobs</button>
 
-      <h1 style={styles.title}>My Applications</h1>
-      <p style={styles.subtitle}>Track your job applications and their status</p>
+      <div style={styles.resumeSection}>
+        <h2 style={styles.resumeTitle}>Your Resume</h2>
+        <div style={styles.resumeActions}>
+          <input 
+            type="text" 
+            placeholder="Enter resume URL"
+            value={resumeUrl}
+            onChange={(e) => setResumeUrl(e.target.value)}
+            style={styles.resumeInput}
+          />
+          <button style={styles.editButton}>Edit</button>
+          <button style={styles.uploadButton}>☁️</button>
+        </div>
+      </div>
 
-      {appliedJobs.length === 0 ? (
+      <h2 style={styles.sectionTitle}>Jobs Applied</h2>
+
+      {applications.length === 0 ? (
         <div style={styles.emptyState}>
           <p>You haven't applied to any jobs yet.</p>
         </div>
       ) : (
-        <ul style={styles.list}>
-          {appliedJobs.map((job) => (
-            <li key={job.id} style={styles.listItem}>
-              <div style={styles.jobInfo}>
-                <h3 style={styles.jobTitle}>{job.title}</h3>
-                <p style={styles.jobMeta}>
-                  💼 {job.company} | 📍 {job.location} | 👤 {job.level}
-                </p>
-              </div>
-              <div style={styles.actions}>
-                <button 
-                  style={styles.viewButton} 
-                  onClick={() => onViewDetails(job)}
-                >
-                  View Details
-                </button>
-                <span style={styles.appliedTag}>Applied</span>
-              </div>
-            </li>
-          ))}
-        </ul>
+        <div style={styles.tableContainer}>
+          <table style={styles.table}>
+            <thead>
+              <tr style={styles.tableHeader}>
+                <th style={styles.th}>Company</th>
+                <th style={styles.th}>Job Title</th>
+                <th style={styles.th}>Location</th>
+                <th style={styles.th}>Date</th>
+                <th style={styles.th}>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {applications.map((app) => (
+                <tr key={app.application_id} style={styles.tableRow}>
+                  <td style={styles.td}>
+                    <div style={styles.companyCell}>
+                      <div style={styles.companyLogo}>
+                        {getCompanyInitial(app.company)}
+                      </div>
+                      <span>{app.company}</span>
+                    </div>
+                  </td>
+                  <td style={styles.td}>{app.job_title}</td>
+                  <td style={styles.td}>{app.location}</td>
+                  <td style={styles.td}>{formatDate(app.applied_at)}</td>
+                  <td style={styles.td}>
+                    <span style={{...styles.statusBadge, ...getStatusStyle(app.status)}}>
+                      {app.status.charAt(0).toUpperCase() + app.status.slice(1)}
+                    </span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
     </div>
   );
@@ -41,17 +120,14 @@ export default function MyApplicationsPage({ appliedJobs, onBack, onViewDetails 
 
 const styles = {
   container: {
-    maxWidth: "900px",
+    maxWidth: "1200px",
     margin: "2rem auto",
     padding: "2rem",
     background: "#fff",
-    borderRadius: "12px",
-    boxShadow: "0 8px 20px rgba(0,0,0,0.05)",
-    fontFamily: "sans-serif",
-    color: "#333",
+    minHeight: "100vh",
   },
   backButton: {
-    marginBottom: "1rem",
+    marginBottom: "2rem",
     cursor: "pointer",
     background: "none",
     border: "none",
@@ -59,15 +135,52 @@ const styles = {
     fontSize: "1rem",
     fontWeight: "500",
   },
-  title: {
-    fontSize: "2rem",
-    marginBottom: "0.3rem",
-    color: "#111",
+  resumeSection: {
+    marginBottom: "3rem",
   },
-  subtitle: {
-    fontSize: "1rem",
-    marginBottom: "2rem",
-    color: "#555",
+  resumeTitle: {
+    fontSize: "1.5rem",
+    fontWeight: "600",
+    marginBottom: "1rem",
+    color: "#1f2937",
+  },
+  resumeActions: {
+    display: "flex",
+    gap: "1rem",
+    alignItems: "center",
+  },
+  resumeInput: {
+    flex: 1,
+    padding: "0.75rem 1rem",
+    border: "1px solid #e5e7eb",
+    borderRadius: "8px",
+    fontSize: "0.95rem",
+    background: "#eff6ff",
+    color: "#2563eb",
+  },
+  editButton: {
+    padding: "0.75rem 1.5rem",
+    border: "1px solid #e5e7eb",
+    borderRadius: "8px",
+    background: "white",
+    cursor: "pointer",
+    fontSize: "0.95rem",
+    fontWeight: "500",
+  },
+  uploadButton: {
+    padding: "0.75rem 1rem",
+    border: "none",
+    borderRadius: "8px",
+    background: "#2563eb",
+    color: "white",
+    cursor: "pointer",
+    fontSize: "1.2rem",
+  },
+  sectionTitle: {
+    fontSize: "1.5rem",
+    fontWeight: "600",
+    marginBottom: "1.5rem",
+    color: "#1f2937",
   },
   emptyState: {
     textAlign: "center",
@@ -78,62 +191,59 @@ const styles = {
     borderRadius: "8px",
     background: "#fafafa",
   },
-  list: {
-    listStyle: "none",
-    padding: 0,
-    margin: 0,
+  tableContainer: {
+    border: "1px solid #e5e7eb",
+    borderRadius: "12px",
+    overflow: "hidden",
   },
-  listItem: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
+  table: {
+    width: "100%",
+    borderCollapse: "collapse",
+  },
+  tableHeader: {
+    background: "#f9fafb",
+    borderBottom: "1px solid #e5e7eb",
+  },
+  th: {
     padding: "1rem 1.5rem",
-    marginBottom: "1rem",
-    borderRadius: "8px",
-    background: "#f9f9f9",
-    border: "1px solid #e0e0e0",
+    textAlign: "left",
+    fontSize: "0.875rem",
+    fontWeight: "600",
+    color: "#6b7280",
+    textTransform: "uppercase",
+    letterSpacing: "0.05em",
+  },
+  tableRow: {
+    borderBottom: "1px solid #e5e7eb",
     transition: "background 0.2s",
   },
-  listItemHover: {
-    background: "#f1f5f9",
+  td: {
+    padding: "1.25rem 1.5rem",
+    fontSize: "0.95rem",
+    color: "#374151",
   },
-  jobInfo: {
+  companyCell: {
     display: "flex",
-    flexDirection: "column",
-    gap: "0.3rem",
-  },
-  jobTitle: {
-    margin: 0,
-    fontSize: "1.2rem",
-    fontWeight: "500",
-    color: "#111",
-  },
-  jobMeta: {
-    margin: 0,
-    fontSize: "0.9rem",
-    color: "#555",
-  },
-  actions: {
-    display: "flex",
-    gap: "0.5rem",
     alignItems: "center",
+    gap: "0.75rem",
   },
-  viewButton: {
-    background: "#2563eb",
-    color: "#fff",
+  companyLogo: {
+    width: "40px",
+    height: "40px",
+    borderRadius: "8px",
+    background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    color: "white",
+    fontWeight: "bold",
+    fontSize: "1.1rem",
+  },
+  statusBadge: {
     padding: "0.5rem 1rem",
-    border: "none",
-    borderRadius: "6px",
-    cursor: "pointer",
-    fontSize: "0.9rem",
-    fontWeight: "500",
-  },
-  appliedTag: {
-    background: "#d1fae5",
-    color: "#065f46",
-    padding: "0.3rem 0.8rem",
-    borderRadius: "6px",
-    fontSize: "0.8rem",
-    fontWeight: "500",
+    borderRadius: "20px",
+    fontSize: "0.875rem",
+    fontWeight: "600",
+    display: "inline-block",
   },
 };

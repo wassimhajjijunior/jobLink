@@ -1,7 +1,27 @@
 // src/components/HeroSection.jsx
-import React from 'react';
+import React, { useState } from 'react';
 
-export default function HeroSection() {
+export default function HeroSection({ onSearch }) {
+  const [query, setQuery] = useState('');
+  const [location, setLocation] = useState('');
+
+  // Live search - trigger on input change
+  const handleQueryChange = (e) => {
+    const newQuery = e.target.value;
+    setQuery(newQuery);
+    onSearch(newQuery, location);
+  };
+
+  const handleLocationChange = (e) => {
+    const newLocation = e.target.value;
+    setLocation(newLocation);
+    onSearch(query, newLocation);
+  };
+
+  const handleSearch = () => {
+    onSearch(query, location);
+  };
+
   const styles = {
     hero: {
       background: 'linear-gradient(135deg, #5b21b6 0%, #7c3aed 100%)',
@@ -56,10 +76,23 @@ export default function HeroSection() {
         And Take The First Step Toward Your Future
       </p>
       <div style={styles.searchBar}>
-        <input type="text" placeholder="Search for jobs" style={styles.searchInput} />
-        <input type="text" placeholder="Location" style={styles.searchInput} />
-        <button style={styles.btnSearch}>Search</button>
-        
+        <input
+          type="text"
+          placeholder="Search for jobs"
+          style={styles.searchInput}
+          value={query}
+          onChange={handleQueryChange}
+        />
+        <input
+          type="text"
+          placeholder="Location"
+          style={styles.searchInput}
+          value={location}
+          onChange={handleLocationChange}
+        />
+        <button style={styles.btnSearch} onClick={handleSearch}>
+          Search
+        </button>
       </div>
     </section>
   );
