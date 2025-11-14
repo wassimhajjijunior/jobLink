@@ -14,34 +14,6 @@ A clean and interactive **Job Portal** web application built with React. Users c
 
 ---
 
-## Folder Structure
-
-job-portal/
-│
-
-├── public/ # Public static files
-│ └── index.html
-│
-
-├── src/
-│ ├── components/ # React components
-│ │ ├── Header.jsx
-│ │ ├── HeroSection.jsx
-│ │ ├── SidebarFilter.jsx
-│ │ ├── JobCard.jsx
-│ │ ├── JobDetails.jsx
-│ │ └── MyApplicationsPage.jsx
-│ │
-
-│ ├── jobsData.json # Sample job data
-│ ├── App.jsx # Main App component
-│ └── main.jsx # Entry point
-│
-
-├── package.json # Project dependencies and scripts
-├── package-lock.json
-└── README.md
-
 ## Installation
 
 1. **Clone the repository**
