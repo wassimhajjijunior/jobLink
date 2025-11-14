@@ -1,16 +1,65 @@
-# React + Vite
+# Job Portal React Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A clean and interactive **Job Portal** web application built with React. Users can browse jobs, view detailed job descriptions, apply to jobs, and track their applications.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## React Compiler
+- Job listing with **filters by category and location**.
+- Job details page with responsibilities, skills, and related/recommended jobs.
+- Apply to jobs and track your applications on the **My Applications page**.
+- Clean and responsive UI with vertical list layout for applied jobs.
+- Reusable `JobCard` component for listing jobs.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## Folder Structure
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+job-portal/
+│
+├── public/ # Public static files
+│ └── index.html
+│
+├── src/
+│ ├── components/ # React components
+│ │ ├── Header.jsx
+│ │ ├── HeroSection.jsx
+│ │ ├── SidebarFilter.jsx
+│ │ ├── JobCard.jsx
+│ │ ├── JobDetails.jsx
+│ │ └── MyApplicationsPage.jsx
+│ │
+│ ├── jobsData.json # Sample job data
+│ ├── App.jsx # Main App component
+│ └── main.jsx # Entry point
+│
+├── package.json # Project dependencies and scripts
+├── package-lock.json
+└── README.md
+
+## Installation
+
+1. **Clone the repository**
+
+https://github.com/wassimhajjijunior/jobLink.git
+cd job-portal
+
+2. Install dependencies
+ npm install 
+3. Run the project locally
+   npm run dev
+
+
+### Usage
+
+Browse jobs on the main page.
+
+Click “Learn more” to see job details.
+
+Click “Apply now” to add the job to your applications.
+
+Go to My Applications page to see all applied jobs.
+
+##Notes
+All job data is loaded from jobsData.json.
