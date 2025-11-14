@@ -18,9 +18,11 @@ A clean and interactive **Job Portal** web application built with React. Users c
 
 job-portal/
 │
+
 ├── public/ # Public static files
 │ └── index.html
 │
+
 ├── src/
 │ ├── components/ # React components
 │ │ ├── Header.jsx
@@ -30,10 +32,12 @@ job-portal/
 │ │ ├── JobDetails.jsx
 │ │ └── MyApplicationsPage.jsx
 │ │
+
 │ ├── jobsData.json # Sample job data
 │ ├── App.jsx # Main App component
 │ └── main.jsx # Entry point
 │
+
 ├── package.json # Project dependencies and scripts
 ├── package-lock.json
 └── README.md
