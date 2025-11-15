@@ -5,7 +5,7 @@ import LoginModal from './LoginModal';
 import RegisterModal from './RegisterModal';
 import logoSvg from '../assets/logo.png';
 
-export default function Header({ onManageJobs, onViewApplications, currentView }) {
+export default function Header({ onManageJobs, onViewApplications, currentView, onLogoClick }) {
   const { user, logout, isAuthenticated } = useAuth();
   const [showLogin, setShowLogin] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
@@ -26,6 +26,7 @@ export default function Header({ onManageJobs, onViewApplications, currentView }
       fontSize: '1.5rem',
       fontWeight: 'bold',
       color: '#2563eb',
+      cursor: 'pointer',
     },
     logoImage: {
       height: '60px',
@@ -93,7 +94,7 @@ export default function Header({ onManageJobs, onViewApplications, currentView }
   return (
     <>
       <header style={styles.header}>
-        <div style={styles.logo}>
+        <div style={styles.logo} onClick={onLogoClick}>
           <img src={logoSvg} alt="JobLink Logo" style={styles.logoImage} />
         </div>
         <div style={styles.headerActions}>

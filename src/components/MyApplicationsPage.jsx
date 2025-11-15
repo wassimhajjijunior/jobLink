@@ -12,7 +12,7 @@ export default function MyApplicationsPage({ onBack, onViewDetails }) {
     const fetchApplications = async () => {
       try {
         const token = getToken();
-        const response = await fetch("http://localhost:3001/api/applications", {
+        const response = await fetch("http://localhost:5000/api/applications", {
           headers: {
             Authorization: `Bearer ${token}`,
           },

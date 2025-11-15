@@ -44,7 +44,7 @@ export default function JobDetails({ job, onBack, jobsData, onViewDetails, onApp
 
     try {
       const token = getToken();
-      const response = await fetch('http://localhost:3001/api/applications', {
+      const response = await fetch('http://localhost:5000/api/applications', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

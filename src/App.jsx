@@ -37,7 +37,7 @@ export default function App() {
   useEffect(() => {
     const fetchJobs = async () => {
       try {
-        const response = await fetch("http://localhost:3001/api/jobs");
+        const response = await fetch("http://localhost:5000/api/jobs");
         const data = await response.json();
         console.log("Fetched jobs:", data);
         setJobs(data);
@@ -178,6 +178,7 @@ export default function App() {
         onManageJobs={() => setCurrentView('manageJobs')}
         onViewApplications={() => setCurrentView('viewApplications')}
         currentView={currentView}
+        onLogoClick={backToListing}
       />
 
       {user && user.role === 'employer' ? (

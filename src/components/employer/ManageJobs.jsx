@@ -12,7 +12,7 @@ export default function ManageJobs({ onAddJob, onViewApplications }) {
   const fetchJobs = async () => {
     try {
       const token = getToken();
-      const response = await fetch('http://localhost:3001/api/employer/jobs', {
+      const response = await fetch('http://localhost:5000/api/employer/jobs', {
         method: 'GET',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -40,7 +40,7 @@ export default function ManageJobs({ onAddJob, onViewApplications }) {
 
     try {
       const token = getToken();
-      const response = await fetch(`http://localhost:3001/api/employer/jobs/${jobId}`, {
+      const response = await fetch(`http://localhost:5000/api/employer/jobs/${jobId}`, {
         method: 'DELETE',
         headers: {
           Authorization: `Bearer ${token}`,

@@ -13,7 +13,7 @@ export default function ViewApplications({ onBack }) {
   const fetchApplications = async () => {
     try {
       const token = getToken();
-      const response = await fetch('http://localhost:3001/api/employer/applications', {
+      const response = await fetch('http://localhost:5000/api/employer/applications', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -28,7 +28,7 @@ export default function ViewApplications({ onBack }) {
   const handleStatusChange = async (applicationId, status) => {
     try {
       const token = getToken();
-      const response = await fetch(`http://localhost:3001/api/employer/applications/${applicationId}`, {
+      const response = await fetch(`http://localhost:5000/api/employer/applications/${applicationId}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
