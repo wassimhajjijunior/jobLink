@@ -12,6 +12,31 @@ dist
 dist-ssr
 *.local
 
+# Environment variables (sensitive data)
+.env
+.env.*
+!.env.example
+backend/.env
+backend/.env.*
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Uploaded files and resumes (personal data)
+backend/src/public/resumes/
+backend/public/resumes/
+uploads/
+
+# SSL certificates and keys
+*.pem
+*.key
+*.cert
+*.crt
+*.p12
+*.pfx
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
