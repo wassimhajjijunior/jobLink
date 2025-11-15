@@ -278,9 +278,8 @@ Frontend will run at:
 
 # 🙌 Author
 
-**Wassim Hajji**
-**MOHSEN KHOUAJA**
-**KHALIFA BOUNEB**
+**Wassim Hajji**  
+/**MOHSEN KHOUAJA**/**KHALIFA BOUNEB**/
 **HADIL KAROUS**
 
 
