@@ -1,421 +1,286 @@
-# JobLink - Full Stack Job Portal Application# Job Portal React Application
+# 📌 JobLink — Full-Stack Job Portal Application
 
-A modern, full-stack **Job Portal** web application built with React, Express.js, and MySQL. Users can browse jobs with advanced filtering, view detailed job descriptions, apply to positions, and track their applications with real-time status updates.A clean and interactive **Job Portal** web application built with React. Users can browse jobs, view detailed job descriptions, apply to jobs, and track their applications.
-
----
-
-## 🚀 Features## Features
-
-### Job Browsing & Search- Job listing with **filters by category and location**.
-
-- **Advanced Filtering**: Filter jobs by categories (tags) and locations- Job details page with responsibilities, skills, and related/recommended jobs.
-
-- **Live Search**: Real-time search by job title and location- Apply to jobs and track your applications on the **My Applications page**.
-
-- **Pagination**: Browse through jobs with 9 items per page- Clean and responsive UI with vertical list layout for applied jobs.
-
-- **Responsive Cards**: Consistent height job cards with hover effects- Reusable `JobCard` component for listing jobs.
-
-### Job Details---
-
-- **Comprehensive View**: Full job descriptions with responsibilities and required skills
-
-- **Related Jobs**: Sidebar showing similar positions from the same company or location## Installation
-
-- **Apply Feature**: One-click application submission with resume URL
-
-- **Posted Time**: Display how long ago each job was posted1. **Clone the repository** (open cmd)
-
-cd desktop
-
-### User Managementgit clone https://github.com/wassimhajjijunior/jobLink.git
-
-- **Authentication**: Secure JWT-based login and registration"open the project in VsCode"
-
-- **User Roles**: Support for applicants and employers"open the terminal"
-
-- **Protected Routes**: Authentication required for certain features npm install
-
-npm run dev
-
-### Application Tracking
-
-- **My Applications Page**: Professional table view of all submitted applications
-
-- **Status Tracking**: Monitor application status (Pending/Accepted/Rejected)### Usage
-
-- **Color-Coded Status**: Visual indicators for each application status
-
-- **Resume Management**: Store and manage resume URLsBrowse jobs on the main page.
-
----Click “Learn more” to see job details.
-
-## 🛠️ Tech StackClick “Apply now” to add the job to your applications.
-
-### FrontendGo to My Applications page to see all applied jobs.
-
-- **React** 19.2.0 - UI library
-
-- **Vite** - Build tool and dev server##Notes
-
-- **Tailwind CSS** 4.1.17 - Utility-first CSS frameworkAll job data is loaded from jobsData.json.
-
-- **Context API** - State management for authentication
-
-### Backend
-
-- **Node.js** with ES Modules
-- **Express.js** 5.1.0 - Web framework
-- **MySQL2** - Database driver
-- **Drizzle ORM** - Type-safe database toolkit
-- **JWT** - Authentication tokens
-- **Bcrypt** - Password hashing
-- **CORS** - Cross-origin resource sharing
-
-### Development Tools
-
-- **ESLint** - Code linting
-- **Drizzle Kit** - Database migrations
-- **Faker.js** - Test data generation
+A modern job-portal web application built with **React**, **Express.js**, and **MySQL**.
+Users can browse job listings, filter results, view job details, apply online, and track their applications.
 
 ---
 
-## 📋 Prerequisites
+## 🚀 Why This Tech Stack?
 
-Before you begin, ensure you have the following installed:
+### **Frontend – React + Vite + Tailwind**
 
-- **Node.js** (v18 or higher)
-- **npm** (v9 or higher)
-- **MySQL** (v8 or higher)
-- **Git**
+* React provides a component-based architecture and fast re-rendering for dynamic UI.
+* Vite ensures extremely fast development and optimized builds.
+* Tailwind CSS offers a utility-first styling approach for rapid design and consistent layout.
+
+### **Backend – Node.js + Express**
+
+* Lightweight, flexible, and widely used in industry.
+* Perfect for building REST APIs quickly.
+* Easy integration with authentication and middleware.
+
+### **Database – MySQL + Drizzle ORM**
+
+* MySQL is reliable, performant, and widely supported.
+* Drizzle ORM provides a type-safe schema, clean migrations, and developer-friendly queries.
+
+This stack was chosen to build a **simple, fast, scalable** job marketplace with clean code and reliable authentication.
 
 ---
 
-## 🔧 Installation & Setup
+# 🌟 Features
 
-### 1. Clone the Repository
+### 🔎 Job Browsing & Search
+
+* Filter jobs by **location** and **tags** (category).
+* Search by title or location with instant results.
+* Pagination (9 jobs per page).
+* Responsive job cards with hover animations.
+
+### 📄 Job Details Page
+
+* Full description (responsibilities, requirements).
+* Display of **similar jobs** based on company or location.
+
+### 📝 Job Application System
+
+* "Apply Now" button available on each job page.
+* User submits résumé URL.
+* Application stored in database and linked to user/job.
+
+### ⭐ My Applications Page
+
+* Users can track their submissions.
+* Displays job title, company, location, date applied.
+* Color-coded status: **Pending**, **Accepted**, **Rejected**.
+
+### 🔐 User Authentication
+
+* JWT-based login and registration.
+* Two user roles:
+
+  * **Applicant**
+  * **Employer**
+* Password hashing with bcrypt.
+* Protected routes for authenticated functionality.
+
+### 🧱 API & Data Layer
+
+* CRUD endpoints for jobs, users, and applications.
+* Drizzle ORM for typed database schema & migrations.
+
+---
+
+# 🛠 Tech Stack
+
+### **Frontend**
+
+* React 19
+* Vite
+* Tailwind CSS 4
+* React Context API
+
+### **Backend**
+
+* Node.js
+* Express 5
+* MySQL2
+* Drizzle ORM
+* JWT Authentication
+* Bcrypt
+* CORS
+
+### **Dev Tools**
+
+* ESLint
+* Drizzle Kit (migrations)
+* Faker.js (test data seeding)
+
+---
+
+# 📁 Project Structure
+
+```
+jobLink/
+├── backend/
+│   ├── src/
+│   │   ├── db/ (schema, connection, seed)
+│   │   ├── routes/ (auth, jobs, applications)
+│   │   ├── middleware/auth.js
+│   │   └── index.js
+│   ├── drizzle/ (migrations)
+│   ├── .env
+│   └── package.json
+│
+└── src/ (frontend React)
+    ├── components/
+    ├── contexts/AuthContext.jsx
+    ├── App.jsx
+    ├── main.jsx
+    └── index.css
+```
+
+---
+
+# ⚙️ Setup & Installation
+
+## 1️⃣ Clone the Repository
 
 ```bash
-cd ~/Desktop
 git clone https://github.com/wassimhajjijunior/jobLink.git
 cd jobLink
 ```
 
-### 2. Database Setup
+---
 
-#### Create MySQL Database
+## 2️⃣ Create the MySQL Database
 
-```bash
-# Login to MySQL
-mysql -u root -p
+Open MySQL:
 
-# Create database
+```sql
 CREATE DATABASE joblink_db;
-EXIT;
 ```
 
-#### Configure Environment Variables
+---
 
-Create a `.env` file in the `backend` directory:
+## 3️⃣ Create Backend Environment File
 
-```bash
-cd backend
-touch .env
+Inside `/backend/.env`:
+
 ```
-
-Add the following to `.env`:
-
-```env
-DATABASE_URL=mysql://root:your_password@localhost:3306/joblink_db
-JWT_SECRET=your_super_secret_jwt_key_change_this_in_production
+DATABASE_URL=mysql://root:YOUR_PASSWORD@localhost:3306/joblink_db
+JWT_SECRET=some_super_secret_key
 PORT=3001
 ```
 
-**Important**: Replace `your_password` with your MySQL root password and `your_super_secret_jwt_key_change_this_in_production` with a secure random string.
+---
 
-### 3. Backend Setup
+## 4️⃣ Install Backend Dependencies
 
 ```bash
-# Navigate to backend directory (if not already there)
 cd backend
-
-# Install dependencies
 npm install
-
-# Generate database schema
-npm run generate
-
-# Run migrations
-npm run migrate
-
-# Seed the database with sample data
-npm run seed
-
-# Start the backend server
-npm start
+npm run generate   # generate schema
+npm run migrate    # run DB migrations
+npm run seed       # insert test data
+npm start          # start backend
 ```
 
-The backend server will start on `http://localhost:3001`
+---
 
-### 4. Frontend Setup
+## 5️⃣ Install Frontend Dependencies
 
-Open a **new terminal** window/tab:
+Open another terminal:
 
 ```bash
-# Navigate to project root
-cd ~/Desktop/jobLink
-
-# Install dependencies
+cd frontend-or-project-root
 npm install
-
-# Start the development server
 npm run dev
 ```
 
-The frontend will start on `http://localhost:5173` (or another port if 5173 is busy)
+Frontend will run at:
+👉 `http://localhost:5173`
 
 ---
 
-## 🎯 Usage
+# ▶️ How to Use
 
-### Browsing Jobs
-
-1. Open your browser and navigate to `http://localhost:5173`
-2. Browse through the job listings on the main page
-3. Use filters to narrow down jobs by category or location
-4. Use the search bar for live searching by job title or location
-5. Navigate through pages using pagination controls
-
-### Viewing Job Details
-
-1. Click on any job card or "Learn more" button
-2. View full job description, responsibilities, and required skills
-3. Check related jobs in the sidebar
-4. See when the job was posted
-
-### Applying for Jobs
-
-1. **Register/Login**: Click "Register" or "Login" in the header
-2. **View Job Details**: Navigate to any job details page
-3. **Click Apply Now**: Button at the top right of the job details
-4. **Enter Resume URL**: Provide your resume URL when prompted
-5. **Submit**: Application is saved to the database
-
-### Tracking Applications
-
-1. After applying, you'll be redirected to "My Applications" page
-2. View all your applications in a professional table format
-3. See application status (Pending/Accepted/Rejected)
-4. View company name, job title, location, and application date
+* Browse all job offers on homepage.
+* Apply filters or search by keywords.
+* Click on a job card for detailed information.
+* Register / Login to apply.
+* Submit your résumé URL.
+* Track all your applications in the **My Applications** page.
 
 ---
 
-## 📁 Project Structure
+# 🔌 API Endpoints
 
-```
-jobLink/
-├── backend/                 # Backend server
-│   ├── src/
-│   │   ├── db/
-│   │   │   ├── index.js            # Database connection
-│   │   │   ├── schema.js           # Database schema (users, jobs, applications)
-│   │   │   └── seeders/
-│   │   │       └── seed.js         # Database seeding script
-│   │   ├── middleware/
-│   │   │   └── auth.js             # JWT authentication middleware
-│   │   ├── routes/
-│   │   │   └── auth.js             # Authentication routes
-│   │   └── index.js                # Main server file
-│   ├── drizzle/                    # Migration files
-│   ├── drizzle.config.js           # Drizzle ORM configuration
-│   ├── package.json
-│   └── .env                        # Environment variables (create this)
-│
-├── src/                     # Frontend application
-│   ├── components/
-│   │   ├── Header.jsx              # Navigation header
-│   │   ├── HeroSection.jsx         # Search bar section
-│   │   ├── SidebarFilter.jsx       # Filter sidebar
-│   │   ├── JobCard.jsx             # Job listing card
-│   │   ├── JobDetails.jsx          # Job details page
-│   │   ├── MyApplicationsPage.jsx  # Applications tracking page
-│   │   ├── LoginModal.jsx          # Login modal
-│   │   └── RegisterModal.jsx       # Registration modal
-│   ├── contexts/
-│   │   └── AuthContext.jsx         # Authentication context
-│   ├── App.jsx                     # Main application component
-│   ├── main.jsx                    # Application entry point
-│   └── index.css                   # Global styles
-│
-├── public/                  # Static assets
-├── package.json             # Frontend dependencies
-├── vite.config.js           # Vite configuration
-├── tailwind.config.js       # Tailwind CSS configuration
-└── README.md                # This file
-```
+### **Auth**
+
+* `POST /api/auth/register`
+* `POST /api/auth/login`
+
+### **Jobs**
+
+* `GET /api/jobs`
+* `GET /api/jobs/:id`
+
+### **Applications** (Protected)
+
+* `POST /api/applications`
+* `GET /api/applications`
 
 ---
 
-## 🔐 API Endpoints
+# 🗄 Database Schema
 
-### Public Endpoints
+### **Users**
 
-- `GET /api/jobs` - Get all jobs with tags
-- `POST /api/auth/register` - Register new user
-- `POST /api/auth/login` - Login user
+* user_id
+* name
+* email
+* password (hashed)
+* role
 
-### Protected Endpoints (Require JWT Token)
+### **Jobs**
 
-- `GET /api/jobs/:id` - Get specific job details
-- `POST /api/applications` - Submit job application
-- `GET /api/applications` - Get user's applications with job details
+* job_id
+* title
+* description
+* company
+* location
+* salary
+* tags (JSON array)
+* employer_id
+* created_at
 
----
+### **Applications**
 
-## 🗃️ Database Schema
-
-### Users Table
-
-- `user_id` (Primary Key)
-- `name`
-- `email` (Unique)
-- `password` (Hashed)
-- `role` (applicant/employer)
-
-### Jobs Table
-
-- `job_id` (Primary Key)
-- `title`
-- `description`
-- `company`
-- `location`
-- `salary`
-- `tags` (JSON array)
-- `employer_id` (Foreign Key)
-- `created_at`
-
-### Applications Table
-
-- `application_id` (Primary Key)
-- `job_id` (Foreign Key)
-- `applicant_id` (Foreign Key)
-- `resume_url`
-- `status` (pending/accepted/rejected)
-- `applied_at`
-- `updated_at`
+* application_id
+* job_id
+* applicant_id
+* resume_url
+* status
+* applied_at
+* updated_at
 
 ---
 
-## 🧪 Testing Credentials
 
-After running the seed script, you can create a test account:
 
-- Register a new account through the UI
-- Or create one manually in the database
+# 🛠 Useful Commands
 
-Default employer password (for seeded data): `password123`
+### Backend
 
----
+* `npm start`
+* `npm run dev`
+* `npm run migrate`
+* `npm run seed`
 
-## 🚀 Deployment
+### Frontend
 
-### Backend Deployment
-
-1. Set up a MySQL database on your hosting provider
-2. Update `.env` with production database credentials
-3. Run migrations: `npm run migrate`
-4. Start server: `npm start`
-
-### Frontend Deployment
-
-1. Build the application: `npm run build`
-2. Deploy the `dist` folder to your hosting provider (Vercel, Netlify, etc.)
-3. Update API base URLs to point to your production backend
+* `npm run dev`
+* `npm run build`
+* `npm run preview`
 
 ---
 
-## 🐛 Troubleshooting
+# 🤝 Contributing
 
-### Backend won't start
-
-- Ensure MySQL is running
-- Check database credentials in `.env`
-- Verify port 3001 is not in use
-
-### Frontend can't connect to backend
-
-- Ensure backend is running on port 3001
-- Check CORS configuration in backend
-- Verify API URLs in frontend components
-
-### Database errors
-
-- Run migrations: `npm run migrate`
-- Check MySQL user permissions
-- Ensure database exists
-
-### Authentication issues
-
-- Clear browser localStorage
-- Check JWT_SECRET is set in `.env`
-- Verify token expiration (default: 7 days)
+1. Fork the project
+2. Create a feature branch
+3. Commit your changes
+4. Push your branch
+5. Create a pull request
 
 ---
 
-## 📝 Scripts
+# 🙌 Author
 
-### Backend Scripts
+**Wassim Hajji**
+**MOHSEN KHOUAJA**
+**KHALIFA BOUNEB**
+**HADIL KAROUS**
 
-```bash
-npm start          # Start the server
-npm run dev        # Start with auto-reload
-npm run generate   # Generate migrations
-npm run migrate    # Run migrations
-npm run seed       # Seed database with sample data
-```
 
-### Frontend Scripts
-
-```bash
-npm run dev        # Start development server
-npm run build      # Build for production
-npm run preview    # Preview production build
-npm run lint       # Run ESLint
-```
-
----
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
----
-
-## 📄 License
-
-This project is open source and available under the MIT License.
-
----
-
-## 👥 Authors
-
-- **Wassim Hajji Junior** - [GitHub](https://github.com/wassimhajjijunior)
-
----
-
-## 🙏 Acknowledgments
-
-- React team for the amazing framework
-- Drizzle ORM for type-safe database operations
-- Tailwind CSS for utility-first styling
-- All contributors and users of this project
-
----
-
-## 📞 Support
-
-For support, email your-email@example.com or open an issue on GitHub.
