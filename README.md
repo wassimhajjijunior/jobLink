@@ -275,12 +275,11 @@ Frontend will run at:
 5. Create a pull request
 
 ---
-
-# 🙌 Author
+# 🙌 Authors
 
 **Wassim Hajji**  
-**MOHSEN KHOUAJA** 
-**KHALIFA BOUNEB** 
-**HADIL KAROUS**
+**Mohsen Khouaja**  
+**Khalifa Bouneb**  
+**Hadil Karous**
 
 
