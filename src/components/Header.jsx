@@ -29,7 +29,7 @@ export default function Header({ onManageJobs, onViewApplications, currentView, 
       cursor: 'pointer',
     },
     logoImage: {
-      height: '60px',
+      height: '40px',
       width: 'auto',
     },
     headerActions: {
