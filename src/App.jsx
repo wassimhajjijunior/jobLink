@@ -1,11 +1,16 @@
 // src/App.jsx
 import React, { useState, useEffect } from "react";
 import Header from "./components/Header";
+import Footer from "./components/Footer";
 import HeroSection from "./components/HeroSection";
 import SidebarFilter from "./components/SidebarFilter";
 import JobCard from "./components/JobCard";
 import JobDetails from "./components/JobDetails";
 import MyApplicationsPage from "./components/MyApplicationsPage";
+import ManageJobs from "./components/employer/ManageJobs";
+import AddJob from "./components/employer/AddJob";
+import ViewApplications from "./components/employer/ViewApplications";
+import { useAuth } from "./contexts/AuthContext";
 
 export default function App() {
   const [jobs, setJobs] = useState([]);
@@ -18,6 +23,16 @@ export default function App() {
   const [searchLocation, setSearchLocation] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const jobsPerPage = 9; // 9 jobs per page
+  const { user } = useAuth();
+
+  // Redirect employers to their dashboard
+  useEffect(() => {
+    if (user && user.role === 'employer') {
+      setCurrentView('manageJobs');
+    } else {
+      setCurrentView('listing');
+    }
+  }, [user]);
 
   useEffect(() => {
     const fetchJobs = async () => {
@@ -106,7 +121,13 @@ export default function App() {
 
 
   const styles = {
-    container: { minHeight: "100vh", background: "#f8f9fa", fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' },
+    container: { 
+      minHeight: "100vh", 
+      background: "#f8f9fa", 
+      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+      display: "flex",
+      flexDirection: "column",
+    },
     mainContent: { display: "grid", gridTemplateColumns: "280px 1fr", gap: "2rem", padding: "2rem", alignItems: "start" },
     jobsGrid: { display: "flex", flexWrap: "wrap", gap: "1rem", alignItems: "stretch" },
     jobsContainer: { display: "flex", flexDirection: "column", gap: "2rem" },
@@ -153,87 +174,121 @@ export default function App() {
 
   return (
     <div style={styles.container}>
-      <Header />
+      <Header 
+        onManageJobs={() => setCurrentView('manageJobs')}
+        onViewApplications={() => setCurrentView('viewApplications')}
+        currentView={currentView}
+      />
 
-      <HeroSection onSearch={(query, location) => {
-        setSearchQuery(query);
-        setSearchLocation(location);
-      }} />
+      {user && user.role === 'employer' ? (
+        // Employer views
+        <>
+          {currentView === 'manageJobs' && (
+            <ManageJobs 
+              onAddJob={() => setCurrentView('addJob')}
+              onViewApplications={() => setCurrentView('viewApplications')}
+            />
+          )}
 
-      {currentView === "listing" && (
-        <div style={styles.mainContent}>
-          <SidebarFilter
-            categories={categories}
-            locations={locations}
-            selectedCategories={selectedCategories}
-            setSelectedCategories={setSelectedCategories}
-            selectedLocations={selectedLocations}
-            setSelectedLocations={setSelectedLocations}
-          />
+          {currentView === 'addJob' && (
+            <AddJob 
+              onBack={() => setCurrentView('manageJobs')}
+              onJobAdded={() => setCurrentView('manageJobs')}
+            />
+          )}
 
-          <div style={styles.jobsContainer}>
-            <div style={styles.jobsGrid}>
-              {currentJobs.map((job) => (
-                <JobCard
-                  key={job.job_id}
-                  job={job}
-                  onViewDetails={viewJobDetails}
-                  onApply={applyJob}
-                />
-              ))}
-              {filteredJobs.length === 0 && <p>No jobs match your filters.</p>}
-            </div>
+          {currentView === 'viewApplications' && (
+            <ViewApplications 
+              onBack={() => setCurrentView('manageJobs')}
+            />
+          )}
+        </>
+      ) : (
+        // Applicant views
+        <>
+          <HeroSection onSearch={(query, location) => {
+            setSearchQuery(query);
+            setSearchLocation(location);
+          }} />
 
-            {filteredJobs.length > 0 && (
-              <div style={styles.pagination}>
-                <button
-                  style={currentPage === 1 ? styles.pageButtonDisabled : styles.pageButton}
-                  onClick={() => paginate(currentPage - 1)}
-                  disabled={currentPage === 1}
-                >
-                  ‹
-                </button>
+          {currentView === "listing" && (
+            <div style={styles.mainContent}>
+              <SidebarFilter
+                categories={categories}
+                locations={locations}
+                selectedCategories={selectedCategories}
+                setSelectedCategories={setSelectedCategories}
+                selectedLocations={selectedLocations}
+                setSelectedLocations={setSelectedLocations}
+              />
 
-                {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-                  <button
-                    key={page}
-                    style={currentPage === page ? styles.pageButtonActive : styles.pageButton}
-                    onClick={() => paginate(page)}
-                  >
-                    {page}
-                  </button>
-                ))}
+              <div style={styles.jobsContainer}>
+                <div style={styles.jobsGrid}>
+                  {currentJobs.map((job) => (
+                    <JobCard
+                      key={job.job_id}
+                      job={job}
+                      onViewDetails={viewJobDetails}
+                      onApply={applyJob}
+                    />
+                  ))}
+                  {filteredJobs.length === 0 && <p>No jobs match your filters.</p>}
+                </div>
 
-                <button
-                  style={currentPage === totalPages ? styles.pageButtonDisabled : styles.pageButton}
-                  onClick={() => paginate(currentPage + 1)}
-                  disabled={currentPage === totalPages}
-                >
-                  ›
-                </button>
+                {filteredJobs.length > 0 && (
+                  <div style={styles.pagination}>
+                    <button
+                      style={currentPage === 1 ? styles.pageButtonDisabled : styles.pageButton}
+                      onClick={() => paginate(currentPage - 1)}
+                      disabled={currentPage === 1}
+                    >
+                      ‹
+                    </button>
+
+                    {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                      <button
+                        key={page}
+                        style={currentPage === page ? styles.pageButtonActive : styles.pageButton}
+                        onClick={() => paginate(page)}
+                      >
+                        {page}
+                      </button>
+                    ))}
+
+                    <button
+                      style={currentPage === totalPages ? styles.pageButtonDisabled : styles.pageButton}
+                      onClick={() => paginate(currentPage + 1)}
+                      disabled={currentPage === totalPages}
+                    >
+                      ›
+                    </button>
+                  </div>
+                )}
               </div>
-            )}
-          </div>
-        </div>
-      )}
+            </div>
+          )}
 
-      {currentView === "details" && (
-        <JobDetails
-          job={selectedJob}
-          onBack={backToListing}
-          jobsData={jobs}
-          onViewDetails={viewJobDetails}
-          onApply={applyJob} 
-        />
-      )}
+          {currentView === "details" && (
+            <JobDetails
+              job={selectedJob}
+              onBack={backToListing}
+              jobsData={jobs}
+              onViewDetails={viewJobDetails}
+              onApply={applyJob} 
+            />
+          )}
 
-      {currentView === "applications" && (
-        <MyApplicationsPage
-          appliedJobs={appliedJobs}
-          onBack={backToListing}
-          onViewDetails={viewJobDetails}
-        />
+          {currentView === "applications" && (
+            <MyApplicationsPage
+              appliedJobs={appliedJobs}
+              onBack={backToListing}
+              onViewDetails={viewJobDetails}
+            />
+          )}
+        </>
       )}
+      
+      <Footer />
     </div>
   );
 }

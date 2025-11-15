@@ -66,8 +66,7 @@ export default function MyApplicationsPage({ onBack, onViewDetails }) {
             onChange={(e) => setResumeUrl(e.target.value)}
             style={styles.resumeInput}
           />
-          <button style={styles.editButton}>Edit</button>
-          <button style={styles.uploadButton}>☁️</button>
+         
         </div>
       </div>
 

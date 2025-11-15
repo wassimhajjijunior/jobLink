@@ -3,8 +3,9 @@ import React, { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import LoginModal from './LoginModal';
 import RegisterModal from './RegisterModal';
+import logoSvg from '../assets/logo.png';
 
-export default function Header() {
+export default function Header({ onManageJobs, onViewApplications, currentView }) {
   const { user, logout, isAuthenticated } = useAuth();
   const [showLogin, setShowLogin] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
@@ -26,16 +27,39 @@ export default function Header() {
       fontWeight: 'bold',
       color: '#2563eb',
     },
-    logoIcon: {
-      width: '28px',
-      height: '28px',
-      background: '#2563eb',
-      borderRadius: '6px',
+    logoImage: {
+      height: '60px',
+      width: 'auto',
     },
     headerActions: {
       display: 'flex',
       gap: '1rem',
       alignItems: 'center',
+    },
+    navButtons: {
+      display: 'flex',
+      gap: '0.5rem',
+    },
+    navButton: {
+      color: '#666',
+      background: 'none',
+      border: 'none',
+      padding: '0.6rem 1.2rem',
+      borderRadius: '8px',
+      fontSize: '0.95rem',
+      cursor: 'pointer',
+      fontWeight: '500',
+      transition: 'all 0.2s',
+    },
+    navButtonActive: {
+      color: '#2563eb',
+      background: '#eff6ff',
+      border: 'none',
+      padding: '0.6rem 1.2rem',
+      borderRadius: '8px',
+      fontSize: '0.95rem',
+      cursor: 'pointer',
+      fontWeight: '500',
     },
     recruiterLogin: {
       color: '#666',
@@ -70,17 +94,34 @@ export default function Header() {
     <>
       <header style={styles.header}>
         <div style={styles.logo}>
-          <div style={styles.logoIcon}></div>
-          <span>JobLink</span>
+          <img src={logoSvg} alt="JobLink Logo" style={styles.logoImage} />
         </div>
         <div style={styles.headerActions}>
           {isAuthenticated ? (
-            <div style={styles.userInfo}>
-              <span style={styles.userName}>{user.name}</span>
-              <button style={styles.btnRegister} onClick={logout}>
-                Logout
-              </button>
-            </div>
+            <>
+              {user.role === 'employer' && (
+                <div style={styles.navButtons}>
+                  <button
+                    style={currentView === 'manageJobs' || currentView === 'addJob' ? styles.navButtonActive : styles.navButton}
+                    onClick={onManageJobs}
+                  >
+                    Manage Jobs
+                  </button>
+                  <button
+                    style={currentView === 'viewApplications' ? styles.navButtonActive : styles.navButton}
+                    onClick={onViewApplications}
+                  >
+                    View Applications
+                  </button>
+                </div>
+              )}
+              <div style={styles.userInfo}>
+                <span style={styles.userName}>{user.name}</span>
+                <button style={styles.btnRegister} onClick={logout}>
+                  Logout
+                </button>
+              </div>
+            </>
           ) : (
             <>
               <button style={styles.recruiterLogin} onClick={() => setShowLogin(true)}>

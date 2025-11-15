@@ -62,7 +62,7 @@ async function seed() {
   console.log("Existing data cleared.");
 
   // Create 5 employers
-  const createdUsers = [];
+  const employers = [];
   const hashedPassword = await bcrypt.hash("password123", 10);
 
   for (let i = 0; i < 5; i++) {
@@ -73,14 +73,29 @@ async function seed() {
       role: "employer",
     };
     const [newUser] = await db.insert(users).values(user);
-    createdUsers.push({ ...user, user_id: newUser.insertId });
+    employers.push({ ...user, user_id: newUser.insertId });
     console.log(`Created employer: ${user.name}`);
   }
 
+  // Create 15 applicants
+  const applicants = [];
+  for (let i = 0; i < 15; i++) {
+    const user = {
+      name: faker.person.fullName(),
+      email: faker.internet.email(),
+      password: hashedPassword,
+      role: "applicant",
+    };
+    const [newUser] = await db.insert(users).values(user);
+    applicants.push({ ...user, user_id: newUser.insertId });
+    console.log(`Created applicant: ${user.name}`);
+  }
+
   // Create 20 jobs
+  const createdJobs = [];
   for (let i = 0; i < 20; i++) {
     const randomEmployer =
-      createdUsers[Math.floor(Math.random() * createdUsers.length)];
+      employers[Math.floor(Math.random() * employers.length)];
     const randomTags = jobTags[Math.floor(Math.random() * jobTags.length)];
     const job = {
       title: faker.person.jobTitle(),
@@ -92,10 +107,87 @@ async function seed() {
       tags: JSON.stringify(randomTags),
       employer_id: randomEmployer.user_id,
     };
-    await db.insert(jobs).values(job);
+    const [newJob] = await db.insert(jobs).values(job);
+    createdJobs.push({ ...job, job_id: newJob.insertId });
     console.log(`Created job: ${job.title}`);
   }
 
+  // Create a specific job for the test employer and add applicants
+  const testEmployer = {
+    name: "My Test Company",
+    email: "employer@gmail.com",
+    password: hashedPassword,
+    role: "employer",
+  };
+  const [newTestEmployer] = await db.insert(users).values(testEmployer);
+  const testEmployerId = newTestEmployer.insertId;
+  console.log(`Created test employer: ${testEmployer.name}`);
+
+  const testJob = {
+    title: "Senior React Developer (Test)",
+    description: "This is a test job for employer@gmail.com.",
+    company: testEmployer.name,
+    location: "Remote",
+    salary: "$150,000",
+    tags: JSON.stringify(["React", "Remote", "Senior"]),
+    employer_id: testEmployerId,
+  };
+  const [newTestJob] = await db.insert(jobs).values(testJob);
+  const testJobId = newTestJob.insertId;
+  console.log(`Created test job: ${testJob.title}`);
+
+  // Make 5 random applicants apply to the test job
+  const numTestApplications = 5;
+  const shuffledTestApplicants = [...applicants].sort(
+    () => Math.random() - 0.5
+  );
+  const selectedTestApplicants = shuffledTestApplicants.slice(
+    0,
+    numTestApplications
+  );
+
+  for (let i = 0; i < selectedTestApplicants.length; i++) {
+    const applicant = selectedTestApplicants[i];
+    const application = {
+      applicant_id: applicant.user_id,
+      job_id: testJobId,
+      resume_url: `http://localhost:3001/resumes/resume_${i + 1}.pdf`,
+      status: "pending",
+    };
+    await db.insert(applications).values(application);
+  }
+  console.log(`Created ${numTestApplications} applications for the test job.`);
+
+  // Create applications (random applicants applying to random jobs)
+  const applicationStatuses = ["pending", "accepted", "rejected"];
+  let applicationCount = 0;
+  applicationCount += numTestApplications;
+
+  for (const job of createdJobs) {
+    // Each job gets 0-5 random applications
+    const numApplications = Math.floor(Math.random() * 6);
+
+    const shuffledApplicants = [...applicants].sort(() => Math.random() - 0.5);
+    const selectedApplicants = shuffledApplicants.slice(0, numApplications);
+
+    for (let i = 0; i < selectedApplicants.length; i++) {
+      const applicant = selectedApplicants[i];
+      const resumeIndex = Math.floor(Math.random() * 15) + 1;
+      const application = {
+        applicant_id: applicant.user_id,
+        job_id: job.job_id,
+        resume_url: `http://localhost:3001/resumes/resume_${resumeIndex}.pdf`,
+        status:
+          applicationStatuses[
+            Math.floor(Math.random() * applicationStatuses.length)
+          ],
+      };
+      await db.insert(applications).values(application);
+      applicationCount++;
+    }
+  }
+
+  console.log(`Created ${applicationCount} applications`);
   console.log("Database seeded successfully!");
   process.exit(0);
 }
