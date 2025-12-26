@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function Footer() {
+export default function Footer({ onNavigate }) {
   const styles = {
     footer: {
       background: '#1f2937',
@@ -45,6 +45,7 @@ export default function Footer() {
         <div style={styles.links}>
           <a 
             href="#" 
+            onClick={(e) => { e.preventDefault(); onNavigate('about'); }}
             style={styles.link}
             onMouseEnter={(e) => e.target.style.color = 'white'}
             onMouseLeave={(e) => e.target.style.color = '#d1d5db'}
@@ -53,6 +54,7 @@ export default function Footer() {
           </a>
           <a 
             href="#" 
+            onClick={(e) => { e.preventDefault(); onNavigate('contact'); }}
             style={styles.link}
             onMouseEnter={(e) => e.target.style.color = 'white'}
             onMouseLeave={(e) => e.target.style.color = '#d1d5db'}
@@ -61,6 +63,7 @@ export default function Footer() {
           </a>
           <a 
             href="#" 
+            onClick={(e) => { e.preventDefault(); onNavigate('privacy'); }}
             style={styles.link}
             onMouseEnter={(e) => e.target.style.color = 'white'}
             onMouseLeave={(e) => e.target.style.color = '#d1d5db'}
@@ -69,6 +72,7 @@ export default function Footer() {
           </a>
           <a 
             href="#" 
+            onClick={(e) => { e.preventDefault(); onNavigate('terms'); }}
             style={styles.link}
             onMouseEnter={(e) => e.target.style.color = 'white'}
             onMouseLeave={(e) => e.target.style.color = '#d1d5db'}

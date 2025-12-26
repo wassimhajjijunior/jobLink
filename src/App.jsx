@@ -10,6 +10,10 @@ import MyApplicationsPage from "./components/MyApplicationsPage";
 import ManageJobs from "./components/employer/ManageJobs";
 import AddJob from "./components/employer/AddJob";
 import ViewApplications from "./components/employer/ViewApplications";
+import About from "./components/About";
+import Contact from "./components/Contact";
+import PrivacyPolicy from "./components/PrivacyPolicy";
+import Terms from "./components/Terms";
 import { useAuth } from "./contexts/AuthContext";
 
 export default function App() {
@@ -181,7 +185,13 @@ export default function App() {
         onLogoClick={backToListing}
       />
 
-      {user && user.role === 'employer' ? (
+      {currentView === 'about' && <About />}
+      {currentView === 'contact' && <Contact />}
+      {currentView === 'privacy' && <PrivacyPolicy />}
+      {currentView === 'terms' && <Terms />}
+
+      {!['about', 'contact', 'privacy', 'terms'].includes(currentView) && (
+      user && user.role === 'employer' ? (
         // Employer views
         <>
           {currentView === 'manageJobs' && (
@@ -287,9 +297,9 @@ export default function App() {
             />
           )}
         </>
-      )}
+      ))}
       
-      <Footer />
+      <Footer onNavigate={setCurrentView} />
     </div>
   );
 }
