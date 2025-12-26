@@ -5,7 +5,7 @@ import LoginModal from './LoginModal';
 import RegisterModal from './RegisterModal';
 import logoSvg from '../assets/logo.png';
 
-export default function Header({ onManageJobs, onViewApplications, currentView, onLogoClick }) {
+export default function Header({ onManageJobs, onViewApplications, onMyApplications, onJobs, currentView, onLogoClick }) {
   const { user, logout, isAuthenticated } = useAuth();
   const [showLogin, setShowLogin] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
@@ -100,7 +100,7 @@ export default function Header({ onManageJobs, onViewApplications, currentView, 
         <div style={styles.headerActions}>
           {isAuthenticated ? (
             <>
-              {user.role === 'employer' && (
+              {user.role === 'employer' ? (
                 <div style={styles.navButtons}>
                   <button
                     style={currentView === 'manageJobs' || currentView === 'addJob' ? styles.navButtonActive : styles.navButton}
@@ -113,6 +113,21 @@ export default function Header({ onManageJobs, onViewApplications, currentView, 
                     onClick={onViewApplications}
                   >
                     View Applications
+                  </button>
+                </div>
+              ) : (
+                <div style={styles.navButtons}>
+                  <button
+                    style={currentView === 'listing' || currentView === 'details' ? styles.navButtonActive : styles.navButton}
+                    onClick={onJobs}
+                  >
+                    Find Jobs
+                  </button>
+                  <button
+                    style={currentView === 'applications' ? styles.navButtonActive : styles.navButton}
+                    onClick={onMyApplications}
+                  >
+                    My Applications
                   </button>
                 </div>
               )}

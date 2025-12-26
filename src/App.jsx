@@ -181,6 +181,8 @@ export default function App() {
       <Header 
         onManageJobs={() => setCurrentView('manageJobs')}
         onViewApplications={() => setCurrentView('viewApplications')}
+        onMyApplications={() => setCurrentView('applications')}
+        onJobs={() => setCurrentView('listing')}
         currentView={currentView}
         onLogoClick={backToListing}
       />

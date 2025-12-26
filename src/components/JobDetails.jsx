@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import JobCard from './JobCard';
+import ApplicationModal from './ApplicationModal';
 
 export default function JobDetails({ job, onBack, jobsData, onViewDetails, onApply }) {
-  const [resumeUrl, setResumeUrl] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const { getToken, isAuthenticated } = useAuth();
 
   if (!job) return null;
@@ -29,46 +30,38 @@ export default function JobDetails({ job, onBack, jobsData, onViewDetails, onApp
     )
     .slice(0, 3);
 
-  const handleApply = async () => {
+  const handleApplyClick = () => {
     if (!isAuthenticated) {
       alert('Please login to apply for jobs.');
       return;
     }
+    setIsModalOpen(true);
+  };
 
-    // Prompt for resume URL
-    const url = prompt('Please enter your resume URL (e.g., https://yourresume.com/resume.pdf):');
-    
-    if (!url) {
-      return; // User cancelled
-    }
-
+  const handleApplicationSubmit = async (file) => {
     try {
       const token = getToken();
+      const formData = new FormData();
+      formData.append('jobId', job.job_id);
+      formData.append('resume', file);
+
       const response = await fetch('http://localhost:5000/api/applications', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({
-          jobId: job.job_id,
-          resumeUrl: url,
-        }),
+        body: formData,
       });
 
       if (response.ok) {
-        alert('Application submitted successfully!');
-        // Navigate to applications page
-        if (onApply) {
-          onApply(job);
-        }
+        // Success handled by modal
       } else {
         const error = await response.json();
-        alert(error.message || 'Failed to submit application.');
+        throw new Error(error.message || 'Failed to submit application.');
       }
     } catch (error) {
       console.error('Error submitting application:', error);
-      alert('An error occurred while submitting the application.');
+      throw error;
     }
   };
 
@@ -124,7 +117,7 @@ export default function JobDetails({ job, onBack, jobsData, onViewDetails, onApp
               </div>
               
               <div style={styles.headerRight}>
-                <button style={styles.applyButtonTop} onClick={handleApply}>
+                <button style={styles.applyButtonTop} onClick={handleApplyClick}>
                   Apply now
                 </button>
                 {job.created_at && (
@@ -172,6 +165,16 @@ export default function JobDetails({ job, onBack, jobsData, onViewDetails, onApp
           </div>
         </aside>
       </div>
+      <ApplicationModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onSubmit={handleApplicationSubmit}
+        jobTitle={job.title}
+        onDone={() => {
+          setIsModalOpen(false);
+          if (onApply) onApply(job);
+        }}
+      />
     </div>
   );
 }

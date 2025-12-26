@@ -8,6 +8,8 @@ import { authMiddleware } from "./middleware/auth.js";
 import authRoutes from "./routes/auth.js";
 import path from "path";
 import { fileURLToPath } from "url";
+import multer from "multer";
+import fs from "fs";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -18,8 +20,39 @@ const port = process.env.PORT || 3001;
 app.use(cors());
 app.use(express.json());
 
+// Ensure resumes directory exists
+const resumesDir = path.join(__dirname, "./public/resumes");
+if (!fs.existsSync(resumesDir)) {
+  fs.mkdirSync(resumesDir, { recursive: true });
+}
+
+// Configure Multer for file uploads
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, resumesDir);
+  },
+  filename: function (req, file, cb) {
+    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+    cb(null, uniqueSuffix + path.extname(file.originalname));
+  },
+});
+
+const upload = multer({ 
+  storage: storage,
+  limits: { fileSize: 5 * 1024 * 1024 }, // 5MB limit
+  fileFilter: (req, file, cb) => {
+    if (file.mimetype === "application/pdf" || 
+        file.mimetype === "application/msword" || 
+        file.mimetype === "application/vnd.openxmlformats-officedocument.wordprocessingml.document") {
+      cb(null, true);
+    } else {
+      cb(new Error("Only PDF and Word documents are allowed!"));
+    }
+  }
+});
+
 // Serve static files (resumes)
-app.use("/resumes", express.static(path.join(__dirname, "./public/resumes")));
+app.use("/resumes", express.static(resumesDir));
 
 // Auth routes
 app.use("/api/auth", authRoutes);
@@ -50,15 +83,19 @@ app.get("/api/jobs/:id", authMiddleware, async (req, res) => {
 });
 
 // Route to create a new application
-app.post("/api/applications", authMiddleware, async (req, res) => {
-  const { jobId, resumeUrl } = req.body;
+app.post("/api/applications", authMiddleware, upload.single('resume'), async (req, res) => {
+  const { jobId } = req.body;
   const applicantId = req.user.userId;
+  const file = req.file;
 
-  if (!jobId || !resumeUrl) {
+  if (!jobId || !file) {
     return res
       .status(400)
-      .json({ message: "Job ID and resume URL are required" });
+      .json({ message: "Job ID and resume file are required" });
   }
+
+  // Construct the resume URL
+  const resumeUrl = `${req.protocol}://${req.get("host")}/resumes/${file.filename}`;
 
   try {
     const newApplication = await db.insert(applications).values({
