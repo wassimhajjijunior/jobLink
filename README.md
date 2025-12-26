@@ -25,6 +25,10 @@ A modern, full-stack job portal application designed to connect job seekers with
 *   **Application Tracking**: Monitor the status of your applications (Pending, Accepted, Rejected).
 *   **Responsive Design**: Optimized for both desktop and mobile devices.
 
+### 🌐 General
+*   **Informational Pages**: Dedicated pages for About Us, Contact, Privacy Policy, and Terms of Service.
+*   **Interactive Contact Form**: Users can send messages directly through the platform.
+
 ---
 
 ## 🛠 Tech Stack
@@ -134,7 +138,7 @@ Start the development server:
 ```bash
 npm run dev
 ```
-*The frontend will run on `http://localhost:5173`*
+*The frontend will run on `http://localhost:3000`*
 
 ---
 
