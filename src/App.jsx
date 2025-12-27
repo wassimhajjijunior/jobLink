@@ -1,19 +1,19 @@
 // src/App.jsx
 import React, { useState, useEffect } from "react";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
-import HeroSection from "./components/HeroSection";
-import SidebarFilter from "./components/SidebarFilter";
-import JobCard from "./components/JobCard";
-import JobDetails from "./components/JobDetails";
-import MyApplicationsPage from "./components/MyApplicationsPage";
+import Header from "./components/layout/Header";
+import Footer from "./components/layout/Footer";
+import HeroSection from "./components/jobs/HeroSection";
+import SidebarFilter from "./components/jobs/SidebarFilter";
+import JobCard from "./components/jobs/JobCard";
+import JobDetails from "./components/jobs/JobDetails";
+import MyApplicationsPage from "./pages/MyApplicationsPage";
 import ManageJobs from "./components/employer/ManageJobs";
 import AddJob from "./components/employer/AddJob";
 import ViewApplications from "./components/employer/ViewApplications";
-import About from "./components/About";
-import Contact from "./components/Contact";
-import PrivacyPolicy from "./components/PrivacyPolicy";
-import Terms from "./components/Terms";
+import About from "./pages/About";
+import Contact from "./pages/Contact";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import Terms from "./pages/Terms";
 import { useAuth } from "./contexts/AuthContext";
 
 export default function App() {

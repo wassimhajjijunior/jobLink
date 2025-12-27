@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { useAuth } from '../contexts/AuthContext';
+import { useAuth } from '../../contexts/AuthContext';
 import JobCard from './JobCard';
-import ApplicationModal from './ApplicationModal';
+import ApplicationModal from '../modals/ApplicationModal';
 
 export default function JobDetails({ job, onBack, jobsData, onViewDetails, onApply }) {
   const [isModalOpen, setIsModalOpen] = useState(false);

@@ -1,9 +1,9 @@
-// src/components/Header.jsx
+// src/components/layout/Header.jsx
 import React, { useState } from 'react';
-import { useAuth } from '../contexts/AuthContext';
-import LoginModal from './LoginModal';
-import RegisterModal from './RegisterModal';
-import logoSvg from '../assets/logo.png';
+import { useAuth } from '../../contexts/AuthContext';
+import LoginModal from '../modals/LoginModal';
+import RegisterModal from '../modals/RegisterModal';
+import logoSvg from '../../assets/logo.png';
 
 export default function Header({ onManageJobs, onViewApplications, onMyApplications, onJobs, currentView, onLogoClick }) {
   const { user, logout, isAuthenticated } = useAuth();
